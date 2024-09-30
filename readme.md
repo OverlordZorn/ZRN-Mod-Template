@@ -5,7 +5,9 @@
 2. Fill Out `.hemtt\project.toml`
 
 ## Main Addon
-1. Fill Out `addons\main\$PBOPREFIX$` -> ~MAINPREFIX~ ~PREFIX~
+1. Fill Out `addons\main\$PBOPREFIX$`
+   1. `~MAINPREFIX~`
+   2. `~PREFIX~`
 2. Fill Out `addons\main\script_mod.hpp`
 3. Update   `addons\main\script_version.hpp` when needed
 4. Fill Out `addons\main\config.cpp`
@@ -14,9 +16,9 @@
 ## Template Addon
 1. Rename Folder
 2. Update `addons\~TEMPLATE_ADDON~\$PBOPREFIX$`
-   1. ~MAINPREFIX~
-   2. ~PREFIX~
-   3. ~TEMPLATE_ADDON~ 
+   1. `~MAINPREFIX~`
+   2. `~PREFIX~`
+   3. `~TEMPLATE_ADDON~`
 3. Update `addons\~TEMPLATE_ADDON~\script_component.hpp`
 4. Update `addons\~TEMPLATE_ADDON~\config.cpp`
    1. Component
