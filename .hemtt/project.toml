@@ -1,6 +1,6 @@
 name = "Example Mod"
-prefix = "mod"          # Ideally, replace "~PREFIX~" across the whole repo with your mod's prefix, example "mod"
-mainprefix = "t"        # Ideally, replace "~MAINPREFIX~" across the whole repo with your mod's mainprefix, example "t"
+prefix = "mod"          # Ideally, replace "~PREFIX~" across the whole repo with your mod's prefix, example "mod" (without the "") 
+mainprefix = "t"        # Ideally, replace "~MAINPREFIX~" across the whole repo with your mod's mainprefix, example "t" (without the "")
 
 [properties]
 author = "Derp Derpington"
