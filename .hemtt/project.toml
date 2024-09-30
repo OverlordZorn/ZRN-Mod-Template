@@ -1,0 +1,33 @@
+name = "Example Mod"
+prefix = "mod"          # Ideally, replace "~PREFIX~" across the whole repo with your mod's prefix, example "mod"
+mainprefix = "t"        # Ideally, replace "~MAINPREFIX~" across the whole repo with your mod's mainprefix, example "t"
+
+[properties]
+author = "Derp Derpington"
+url = "https://github.com/Derpington"
+
+[binarize]
+enabled = true # Default: true
+
+[files]
+include = [
+    "mod.cpp",      # These files are copied to the build directory by default
+    "meta.cpp",     # They do not need to be added to your list
+    "LICENSE",
+    "/img/*.paa",
+    "logo_ca.paa",
+    "logo_co.paa",
+    "*.bikey",
+]
+exclude = [
+    "*.psd",        # By default this list is empty
+    "*.md",
+    "/.vscode/",
+]
+
+[version]
+# path = "addons/main/script_version.hpp" # Default
+# major = 0 # Overrides path when set
+# minor = 1
+# patch = 1
+# git_hash = 4 # Default: 8

@@ -1,0 +1,14 @@
+[sqf.banned_commands]
+
+lints.sqf.banned_commands = "Warning"
+
+options.ignore = [
+    "createSoundSource",
+    "addPublicVariableEventHandler",
+]
+
+[sqf.command_case]
+options.ignore = [
+    "rankID",
+    "groupID"
+]
