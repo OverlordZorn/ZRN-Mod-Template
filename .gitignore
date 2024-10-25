@@ -4,4 +4,4 @@ hemtt
 hemtt.exe
 *.biprivatekey
 .vscode
-/releases/*
+/releases
