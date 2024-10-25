@@ -30,7 +30,6 @@ class CfgPatches {
         weapons[] = {};
 
 	};
-
 };
 
 #include "CfgFunctions.hpp"
