@@ -9,7 +9,7 @@ Feel free to create a PR if you see something missing!
 - HEMTT
   - hemtt's project.toml
   - hemtt's launch.toml
-    - simple `test.vr` to be used with `hemtt launch Test`
+    - simple Editor Test Mission `test.vr` to be used with `hemtt launch Test`
 
 - Automated Version Bumping
   - MINOR on `hemtt release` (WIP: Only bumps when using on your local mashine through hemtt, not when releasing through github action.)
