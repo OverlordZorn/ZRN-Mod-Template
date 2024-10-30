@@ -1,8 +1,10 @@
 # Overlord Zorns Personal Mod Template
 
-Here I try to collect and maintain a personal, basic mod framework.
+Here I maintain a personal, basic mod framework.
 
-## Includes
+Feel free to create a PR if you see something missing!
+
+## This Arma3 Mod Template comes with:
 
 - HEMTT
   - hemtt's project.toml
