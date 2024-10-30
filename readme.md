@@ -6,15 +6,24 @@ Feel free to create a PR if you see something missing!
 
 ## This Arma3 Mod Template comes with:
 
+- MAIN ADDON
+  - Has a set of my personal macros. Some are somewhat duplicate from cba, but i already got used to them. Feel free to use them or not.
+
+- TEMPLATE ADDON Folder
+  - Basic CfgFunctions Setup
+    - example `fn_example.sqf` function
+  - Basic CBA XEH Setup
+    - example `XEH_preInit.sqf` with CBA Addon Option Template
+
+- INCLUDE Folder
+  - CBA Macros and Stuff
+  - ACE3 Macros and Stuff
+  - some A3 GUI Stuff
+
 - HEMTT
   - hemtt's project.toml
   - hemtt's launch.toml
     - simple Editor Test Mission `test.vr` to be used with `hemtt launch Test`
-
-- Automated Version Bumping
-  - MINOR on `hemtt release` (WIP: Only bumps when using on your local mashine through hemtt, not when releasing through github action.)
-  - PATCH on github PR (PLANNED, not done yet - need to learn github action stuff first)
-  - BUILD on `hemtt built`, including `hemtt launch`
 
 - GITHUB
   - Github Action on release
@@ -25,19 +34,12 @@ Feel free to create a PR if you see something missing!
     - Planned: Bump Minor Version on Release, set patch to 0
   - SQF Validator Python Script
 
-- INCLUDE Folder
-  - CBA Macros and Stuff
-  - ACE3 Macros and Stuff
-  - some A3 GUI Stuff
 
-- MAIN ADDON
-  - Has a set of my personal macros. Some are somewhat duplicate from cba, but i already got used to them. Feel free to use them or not.
+- Automated Version Bumping
+  - MINOR on `hemtt release` (WIP: Only bumps when using on your local mashine through hemtt, not when releasing through github action.)
+  - PATCH on github PR (PLANNED, not done yet - need to learn github action stuff first)
+  - BUILD on `hemtt built`, including `hemtt launch`
 
-- TEMPLATE ADDON Folder
-  - Basic CfgFunctions Setup
-    - example `fn_example.sqf` function
-  - Basic CBA XEH Setup
-    - example `XEH_preInit.sqf` with CBA Addon Option Template
 
 
 ## HOW TO SETUP
