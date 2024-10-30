@@ -90,7 +90,9 @@ Examples are `common` or `my_addon`
 ## How to install Hemtt
 `winget install BrettMayson.HEMTT` to install.
 
-I have a .bat file in my autostart (WIN+R -> `shell:startup`) folder with `winget update BrettMayson.HEMTT`.
+### auto update hemtt
+in `tools` you can find a `update_hemtt.bat` which i use in my autostart folder to automatically update hemtt.
+You can find your Win Users Autostart folder via  `WIN+R` -> `shell:startup`
 
 ### Install Winget
 https://learn.microsoft.com/en-us/windows/package-manager/winget/
