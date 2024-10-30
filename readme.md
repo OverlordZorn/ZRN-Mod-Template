@@ -86,3 +86,11 @@ Examples are `common` or `my_addon`
 
 5. Start building your mod
    1. Dont forget to remove fn_example.
+
+## How to install Hemtt
+`winget install BrettMayson.HEMTT` to install.
+
+I have a .bat file in my autostart (WIN+R -> `shell:startup`) folder with `winget update BrettMayson.HEMTT`.
+
+### Install Winget
+https://learn.microsoft.com/en-us/windows/package-manager/winget/
