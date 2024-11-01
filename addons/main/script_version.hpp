@@ -2,7 +2,7 @@
 #define MINOR 0
 #define PATCH 0
 #define BUILD 0
-#define COMMIT empty
+
 
 // #define VERSION MACROS
 #define VERSION MAJOR.MINOR
