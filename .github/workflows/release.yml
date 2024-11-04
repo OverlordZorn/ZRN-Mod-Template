@@ -1,10 +1,23 @@
 # This action will use hemtt release to build the mod folder which then will be uploaded to the provided steam workshop page
+#
+# Pre-Requisites
+# - Mod needs to be already on the Workshop
+# - Steam Account that owns Arma and needs to be a contributer to the workshop item.
+# -- It is recommended to use a dedicated Steam Account with 2FA disabled.
+#
+# How to use
+#
+# 1. Update the FOLDER Variable and remove the #
+# 2. Update the WORKSHOP ID Variable and remove the #
+# 3. Add STEAM_USERNAME as github repo secret
+# 4. Add STEAM_PASSWORD as github repo secret
+
 
 name: Release
 
 env:
-  FOLDER:           ##'@cvo_aux'
-  WORKSHOPID:       ##'3037257908'
+  FOLDER: #'@cvo_aux'
+  WORKSHOPID: #'3037257908'
 
 on:
   release:
