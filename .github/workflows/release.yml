@@ -1,4 +1,10 @@
+# This action will use hemtt release to build the mod folder which then will be uploaded to the provided steam workshop page
+
 name: Release
+
+env:
+  FOLDER:           ##'@cvo_aux'
+  WORKSHOPID:       ##'3037257908'
 
 on:
   release:
@@ -13,32 +19,39 @@ jobs:
     steps:
         - name: Set VERSION env
           run: echo VERSION=${GITHUB_REF:11} >> $GITHUB_ENV
+
         - name: Checkout the source code
           uses: actions/checkout@v2
+
         - name: Setup HEMTT
           uses: arma-actions/hemtt@v1
+
         - name: Run HEMTT build
           run: hemtt release --no-archive
+
         - name: Move release to releases folder
           run:
             version="${{ github.event.release.tag_name }}"
-            mv .hemttout/release "@cvo_aux-${{ env.VERSION }}"
+            mv .hemttout/release "${{ env.FOLDER }}-${{ env.VERSION }}"
+
         - name: Zip release
-          run: zip -r "@cvo_aux-${{ env.VERSION }}.zip" ./@cvo_aux-${{ env.VERSION }}
+          run: zip -r "${{ env.FOLDER }}-${{ env.VERSION }}.zip" ./${{ env.FOLDER }}-${{ env.VERSION }}
+
         - name: Update Release with Files
           uses: softprops/action-gh-release@v1
           with:
-            files: ./@cvo_aux-${{ env.VERSION }}.zip
+            files: ./${{ env.FOLDER }}-${{ env.VERSION }}.zip
             draft: true
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
         - name: Update to Steam Workshop (stable)
           uses: arma-actions/workshop-upload@v1
           with:
-            itemId: '3037257908'
-            contentPath: './@cvo_aux-${{ env.VERSION }}'
+            itemId: ${{ env.WORKSHOPID }}
+            contentPath: './${{ env.FOLDER }}-${{ env.VERSION }}'
             changelog: |
-              https://github.com/OverlordZorn/CVO-Auxiliary/releases/tag/v${{ env.VERSION }}
+              https://github.com/${{ github.repository }}/releases/tag/v${{ env.VERSION }}
 
               ${{ github.event.release.body }}
           env:
