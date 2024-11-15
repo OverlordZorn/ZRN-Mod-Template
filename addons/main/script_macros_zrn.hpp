@@ -3,7 +3,7 @@
 #endif
 
 // CBA Settings
-#define SET(var1) TRIPLES(ADDON,SET,var1)
+#define SET(var1) TRIPLES(ADDON,set,var1)
 #define QSET(var1) Q(SET(var1))
 #define QQSET(var1) QQ(SET(var1))
 #define ESET(var1,var2) TRIPLES(DOUBLES(PREFIX,var1),SET,var2)
@@ -46,6 +46,12 @@
 #define QCVAR(var1) QUOTE(CVAR(var1))
 #define QQCVAR(var1) QUOTE(QCVAR(var1))
 
+// missionNamespace set/get Variables
+
+#define SETMGVAR(name,value) (missionNamespace setVariable [QGVAR(name),value])
+#define SETMGVAR_PUBLIC(name,value,public) (missionNamespace setVariable [QGVAR(name),value,public])
+
+#define GETMGVAR(name,default) (missionNamespace getVariable [QGVAR(name),default])
 
 // CfgPatches Stuff
 #ifndef PREFIX_BEAUTIFIED
@@ -55,7 +61,7 @@
     #define COMPONENT_BEAUTIFIED COMPONENT
 #endif
 
-#define ADDON_NAME Q(PREFIX_BEAUTIFIED COMPONENT_BEAUTIFIED)
+#define ADDON_NAME Q(PREFIX_BEAUTIFIED - COMPONENT_BEAUTIFIED)
 
 // Paths
 #define PATH_TO_FUNC QUOTE(\MAINPREFIX\PREFIX\addons\COMPONENT\functions)
@@ -67,6 +73,16 @@
 #define QQPATH_TO_ADDON(var1) Q(QUOTE(\MAINPREFIX\PREFIX\addons\COMPONENT\var1))
 
 // Debug
+// Doesnt seem to work currently 
+#ifdef _ZRN_DEBUG_
+    #define _DEBUG_POSTINIT_ postInit = 1;
+    #define _DEBUG_PREINIT_ preInit = 1;
+#else
+    #define _DEBUG_POSTINIT_ postInit = 0;
+    #define _DEBUG_PREINIT_ preInit = 0;
+#endif
+
+
 #define DEBUG_HEADER format [QUOTE([PREFIX][COMPONENT](%1)),_fnc_scriptName]
 
 #define ZRN_LOG_MSG(MSG) diag_log (DEBUG_HEADER + " " + QUOTE(MSG))
