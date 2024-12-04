@@ -1,4 +1,10 @@
 [default]
+
+# executable = "arma3_x64"        # Default: "arma3_x64"
+# file_patching = true # Default: true
+# binarize = false # Default: false
+# rapify = true # Default: true
+
 workshop = [
     "450814997",  # CBA_A3's Workshop ID
     "463939057",  # ACE3
@@ -8,6 +14,7 @@ workshop = [
 
 dlc = []
 optionals = []
+
 
 parameters = [
     "-window",

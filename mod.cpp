@@ -1,4 +1,4 @@
-name = "ZRN Mod Template";
+name = "ZRN Mod Template {version}";
 
 author = "Overlord Zorn";
 
