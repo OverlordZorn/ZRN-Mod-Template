@@ -2,6 +2,7 @@
 
 
 /*	here, you put in your CBA Settings so they are available in the editor!
+https://github.com/CBATeam/CBA_A3/wiki/CBA-Settings-System#create-a-custom-setting-for-mission-or-mod
 [
 	
 	QSET(displayMusic),					//    _setting     - Unique setting name. Matches resulting variable name <STRING>
