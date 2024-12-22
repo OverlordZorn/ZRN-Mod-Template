@@ -1,4 +1,7 @@
 <!--
+
+###### REMOVE COMMENTS WHEN USING ######
+
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="~PREFIX~">
     <Package name="~TEMPLATE_ADDON~">
@@ -24,4 +27,5 @@
         </Container>
     </Package>
 </Project>
+
 -->
