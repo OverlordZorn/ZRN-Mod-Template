@@ -1,0 +1,27 @@
+<!--
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="~PREFIX~">
+    <Package name="~TEMPLATE_ADDON~">
+        <Container name="common">
+            <Key ID="STR_~TEMPLATE_ADDON~_author">
+                <Original>OverlordZorn[CVO]</Original>
+                <English>OverlordZorn[CVO]</English>
+            </Key>
+        </Container>
+        <Container name="CBA_Settings_Categories">
+            <Key ID="STR_~PREFIX~_~TEMPLATE_ADDON~_set_cat_main">
+                <Original>~PREFIX~ - ~TEMPLATE_ADDON~</Original>
+                <English>~PREFIX~ - ~TEMPLATE_ADDON~</English>
+            </Key>
+        </Container>
+        <Container name="CBA_Settings">
+            <Key ID="STR_~PREFIX~_~TEMPLATE_ADDON~_set_cat_enable">
+                <Original>Enable</Original>
+            </Key>
+            <Key ID="STR_~PREFIX~_~TEMPLATE_ADDON~_set_cat_enable_desc">
+                <English>Will Enable the ~TEMPLATE_ADDON~ System.</English>
+            </Key>
+        </Container>
+    </Package>
+</Project>
+-->
