@@ -7,7 +7,9 @@ here, you put in your CBA Settings so they are available in the editor!
 https://github.com/CBATeam/CBA_A3/wiki/CBA-Settings-System#create-a-custom-setting-for-mission-or-mod
 
 MACROS Used:
-SETLSTRING(test) -> [LSTRING(set_test), LSTRING(set_test_desc)]
+SETLSTRING(test) -> [LSTRING(set_test), LSTRING(set_test_desc)] -> STR_prefix_component_set_test // STR_prefix_component_set_test_desc
+
+
 SET(test) -> ADDON_set_test
 QSET(test) -> "ADDON_set_test"
 */
