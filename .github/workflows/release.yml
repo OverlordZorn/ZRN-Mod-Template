@@ -35,6 +35,13 @@ jobs:
         - name: Checkout the source code
           uses: actions/checkout@v2
 
+        - name: Update timestamp in meta.cpp
+          shell: pwsh
+          run: |
+            $ticks = [DateTime]::UtcNow.Ticks
+            $filePath = "${{ github.workspace }}/meta.cpp"
+            (Get-Content $filePath) -replace 'timestamp\s*=\s*;', "timestamp = $ticks;" | Set-Content $filePath
+
         - name: Setup HEMTT
           uses: arma-actions/hemtt@v1
 
