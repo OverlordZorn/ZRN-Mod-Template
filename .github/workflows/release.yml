@@ -17,6 +17,7 @@ name: Release
 env:
   FOLDER: # '@cvo_aux'
   WORKSHOPID: # '3037257908'
+  WORKSHOPNAME: # 'my mod name on the workshop'
 
 on:
   release:
@@ -34,6 +35,14 @@ jobs:
 
         - name: Checkout the source code
           uses: actions/checkout@v2
+
+        - name: Create meta.cpp for release
+          shell: pwsh
+          run: |
+            & "${{ github.workspace }}/tools/create-meta-cpp.ps1" `
+              -FilePath "${{ github.workspace }}/meta.cpp" `
+              -PublishedId "${{ env.WORKSHOPID }}" `
+              -ModName "${{ env.WORKSHOPNAME }}"
 
         - name: Setup HEMTT
           uses: arma-actions/hemtt@v1
