@@ -1,1 +1,1 @@
-HEMTT.script("update_1_minor");
+// HEMTT.script("update_1_minor");

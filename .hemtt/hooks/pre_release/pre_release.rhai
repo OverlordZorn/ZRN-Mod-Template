@@ -1,1 +1,1 @@
-HEMTT.script("update_modcpp_version");
+// HEMTT.script("update_modcpp_version");
