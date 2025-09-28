@@ -1,14 +1,23 @@
 [sqf.banned_commands]
+options.banned = [
+    #"spawn", # Scheduled should be avoided whenever possible
+    #"execVM", # Script files should never be run directly, they should be functions
+    #"remoteExec", # CBA events should be used for networking
+]
+
 
 lints.sqf.banned_commands = "Warning"
+
 
 options.ignore = [
     "createSoundSource",
     "addPublicVariableEventHandler",
 ]
 
+
 [sqf.command_case]
 options.ignore = [
     "rankID",
     "groupID"
 ]
+
