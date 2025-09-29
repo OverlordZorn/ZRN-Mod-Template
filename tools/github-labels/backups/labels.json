@@ -1,0 +1,77 @@
+[
+  {
+    "name": "help wanted",
+    "color": "0e8a16",
+    "description": ""
+  },
+  {
+    "name": "ignore-changelog",
+    "color": "FF55FF",
+    "description": "Release Notes: Excluded"
+  },
+  {
+    "name": "kind/bug",
+    "color": "d93d3d",
+    "description": ""
+  },
+  {
+    "name": "kind/bug-fix",
+    "color": "325559",
+    "description": "Release Notes: **FIXED:**"
+  },
+  {
+    "name": "kind/change",
+    "color": "325559",
+    "description": "Release Notes: **CHANGED:**"
+  },
+  {
+    "name": "kind/cleanup",
+    "color": "325559",
+    "description": "Release Notes: **CHANGED:**"
+  },
+  {
+    "name": "kind/critical bug",
+    "color": "e11d21",
+    "description": ""
+  },
+  {
+    "name": "kind/documentation",
+    "color": "325559",
+    "description": ""
+  },
+  {
+    "name": "kind/enhancement",
+    "color": "325559",
+    "description": "Release Notes: **IMPROVED:**"
+  },
+  {
+    "name": "kind/feature",
+    "color": "325559",
+    "description": "Release Notes: **ADDED:**"
+  },
+  {
+    "name": "kind/optimization",
+    "color": "325559",
+    "description": "Release Notes: **IMPROVED:**"
+  },
+  {
+    "name": "kind/question",
+    "color": "cc317c",
+    "description": ""
+  },
+  {
+    "name": "kind/setting",
+    "color": "325559",
+    "description": "Release Notes: **SETTINGS:**"
+  },
+  {
+    "name": "kind/task",
+    "color": "325559",
+    "description": ""
+  },
+  {
+    "name": "kind/translation",
+    "color": "325559",
+    "description": "Release Notes: **TRANSLATIONS:**"
+  }
+]
