@@ -1,1 +1,2 @@
-// HEMTT.script("update_3_build");
+HEMTT.script("bump_build");
+HEMTT.script("update_version_modcpp");
