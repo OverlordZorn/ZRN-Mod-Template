@@ -7,7 +7,7 @@ Updated deploy script that:
 - reads GH token from GH_TOKEN
 - optionally uses TRANSLATION_ISSUE env var (issue number)
 - searches for an issue titled "Translations" if TRANSLATION_ISSUE is not provided
-- generates the markdown report by calling tools/stringtablediag.py --markdown
+- generates the markdown report by calling tools/stringtableDiag.py --markdown
 - updates the issue body only when different (adds a timestamp footer)
 - logs sizes and actions for easier debugging
 """
@@ -86,9 +86,9 @@ def find_translation_issue(repo):
 
 def generate_translation_report():
     """Run the diagnostic tool and return its markdown output."""
-    diag_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), "stringtablediag.py")
+    diag_script = os.path.join(os.path.dirname(os.path.realpath(__file__)), "stringtableDiag.py")
     if not os.path.isfile(diag_script):
-        print("❌ Diagnostic script not found at tools/stringtablediag.py")
+        print("❌ Diagnostic script not found at tools/stringtableDiag.py")
         sys.exit(1)
 
     try:
@@ -96,12 +96,12 @@ def generate_translation_report():
         diag_output = sp.check_output(["python3", diag_script, "--markdown"], text=True, stderr=sp.STDOUT)
         return diag_output
     except sp.CalledProcessError as e:
-        print("❌ stringtablediag.py failed:")
+        print("❌ stringtableDiag.py failed:")
         # print command output for debugging
         print(e.output)
         sys.exit(1)
     except Exception:
-        print("❌ Unexpected error running stringtablediag.py.")
+        print("❌ Unexpected error running stringtableDiag.py.")
         print(traceback.format_exc())
         sys.exit(1)
 
