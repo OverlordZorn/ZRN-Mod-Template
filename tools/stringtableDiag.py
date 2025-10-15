@@ -2,6 +2,7 @@
 
 import os
 import sys
+
 from xml.dom import minidom
 
 # STRINGTABLE DIAG TOOL
@@ -52,73 +53,71 @@ def check_module(projectpath, module, languages):
     return keynumber, localized
 
 def main():
-    markdown = "--markdown" in sys.argv
-
     scriptpath = os.path.realpath(__file__)
     projectpath = os.path.dirname(os.path.dirname(scriptpath))
     projectpath = os.path.join(projectpath, "addons")
 
-    if not markdown:
+    if "--markdown" not in sys.argv:
         print("#########################")
         print("# Stringtable Diag Tool #")
         print("#########################")
 
     languages = get_all_languages(projectpath)
 
-    if not markdown:
+    if "--markdown" not in sys.argv:
         print("\nLanguages present in the repo:")
         print(", ".join(languages))
 
     keysum = 0
-    localizedsum = [0 for _ in languages]
-    missing = {lang: {} for lang in languages}  # module -> list of missing keys
+    localizedsum = list(map(lambda x: 0, languages))
+    missing = list(map(lambda x: [], languages))
 
     for module in os.listdir(projectpath):
-        stringtablepath = os.path.join(projectpath, module, "stringtable.xml")
-        try:
-            xmldoc = minidom.parse(stringtablepath)
-        except:
-            continue
+        keynumber, localized = check_module(projectpath, module, languages)
 
-        keys = xmldoc.getElementsByTagName("Key")
-        keynumber = len(keys)
         if keynumber == 0:
             continue
 
+        if "--markdown" not in sys.argv:
+            print("\n# " + module)
+
         keysum += keynumber
+        for i in range(len(localized)):
+            if "--markdown" not in sys.argv:
+                print("  %s %s / %i" % ((languages[i]+":").ljust(10), str(localized[i]).ljust(3), keynumber))
+            localizedsum[i] += localized[i]
+            if localized[i] < keynumber:
+                missing[i].append(module)
 
-        for i, lang in enumerate(languages):
-            localized_count = len(xmldoc.getElementsByTagName(lang))
-            localizedsum[i] += localized_count
-            if localized_count < keynumber:
-                missing_keys = []
-                for key in keys:
-                    if not key.getElementsByTagName(lang):
-                        missing_keys.append(key.getAttribute("name") or key.getAttribute("id") or "(unknown)")
-                missing[lang][module] = missing_keys
+    if "--markdown" not in sys.argv:
+        print("\n###########")
+        print("# RESULTS #")
+        print("###########")
+        print("\nTotal number of keys: %i\n" % (keysum))
 
-    # --- Markdown Table ---
-    print(f"**Translation Status Report**\n")
-    print(f"_Total number of keys: {keysum}_\n")
-    print("| Language | Missing Entries | Modules Missing Keys | % Complete |")
-    print("|----------|----------------:|--------------------|------------|")
-    for i, lang in enumerate(languages):
-        percent_done = round(100 * localizedsum[i] / keysum) if keysum > 0 else 100
-        missing_count = sum(len(v) for v in missing[lang].values())
-        modules = ", ".join(missing[lang].keys()) if missing_count > 0 else "-"
-        entry_display = f"**{missing_count} ⚠️**" if missing_count > 0 else "0"
-        print(f"| {lang} | {entry_display} | {modules} | {percent_done}% |")
+        for i in range(len(languages)):
+            if localizedsum[i] == keysum:
+                print("%s No missing stringtable entries." % ((languages[i] + ":").ljust(12)))
+            else:
+                print("%s %s missing stringtable entry/entries." % ((languages[i] + ":").ljust(12), str(keysum - localizedsum[i]).rjust(4)), end="")
+                print(" ("+", ".join(missing[i])+")")
 
-    # --- Collapsible Sections with Missing Keys ---
-    for lang in languages:
-        missing_count = sum(len(v) for v in missing[lang].values())
-        if missing_count == 0:
-            continue
-        print(f"\n<details>")
-        print(f"<summary>{lang} ({missing_count} missing)</summary>\n")
-        for module, keys in missing[lang].items():
-            print(f"- **{module}**: {', '.join(keys)}")
-        print("</details>\n")
+        print("\n\n### MARKDOWN ###\n")
+
+    print("Total number of keys: %i\n" % (keysum))
+
+    print("| Language | Missing Entries | Relevant Modules | % done |")
+    print("|----------|----------------:|------------------|--------|")
+
+    for i, language in enumerate(languages):
+        if localizedsum[i] == keysum:
+            print("| {} | 0 | - | 100% |".format(language))
+        else:
+            print("| {} | {} | {} | {}% |".format(
+                language,
+                keysum - localizedsum[i],
+                ", ".join(missing[i]),
+                round(100 * localizedsum[i] / keysum)))
 
 if __name__ == "__main__":
     main()
