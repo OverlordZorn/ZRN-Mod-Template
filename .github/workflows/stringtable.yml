@@ -1,0 +1,41 @@
+name: Stringtable.xml
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  update-translations:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read        # allow reading repo files
+      issues: write         # allow editing issues (required!)
+      pull-requests: read   # optional safety
+
+    env:
+      # GitHub automatically provides this token with repo write permissions
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Optional issue number secret or variable (safe if missing)
+      TRANSLATION_ISSUE: ${{ secrets.TRANSLATION_ISSUE || vars.TRANSLATION_ISSUE || '' }}
+
+    steps:
+      - name: 🧰 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: 📦 Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyGithub
+
+      - name: 🧪 Run translation diagnostics and update issue
+        run: |
+          python tools/stringtableDeploy.py
