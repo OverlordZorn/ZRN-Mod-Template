@@ -6,7 +6,7 @@ tag-template: 'v$NEXT_PATCH_VERSION'
 categories:
   - title: 'Features 🚀'
     labels:
-      - pr/feature
+      - pr/new
       - pr/improvement
   - title: 'Bug Fixes 🐛'
     labels:
@@ -14,15 +14,17 @@ categories:
   - title: 'Documentation 📚'
     labels:
       - pr/docs
+  - title: 'Translation 📚'
+    labels:
+      - pr/translation
   - title: 'Maintenance 🛠️'
     labels:
-      - pr/refactor
+      - pr/maintenance
       - pr/cleanup
-      - pr/meta
 
 # change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
 exclude-labels:
-  - pr/ignoreChangelog
+  - pr/ignore
 
 change-template: '* $TITLE (#$NUMBER) by @$AUTHOR'
 template: |
