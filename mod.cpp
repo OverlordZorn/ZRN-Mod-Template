@@ -14,10 +14,10 @@ tooltip         = "tooltip - If you read this, someone forgot to replace a strin
 tooltipOwned    = "tooltipOwned";                                                                                                          // Tool tip displayed when the mouse is left over, in the main menu
 overview        = "overview";                 // Overview text, displayed from the extension menu
 description     = "description";                                                     // Probably in context with action
-action          = "http://discord.chornivoron.net/";                                                                                                // Website URL, that can accessed from the expansions menu 
+action          = "https://discord.gg/V37bRTnbb8/";                                                                                                // Website URL, that can accessed from the expansions menu 
 actionName      = "Discord";                                                                                                                        // label of button/tooltip in extension menu
 
-overviewPicture = "voron_round_olive_texture_1024.paa";
+overviewPicture = "img\Raven_Voron_64.paa";
 overviewText = "overviewText";
 
 overviewFootnote = "overviewFootnote";
