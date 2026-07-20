@@ -1,0 +1,23 @@
+# .github/release.yml
+changelog:
+  exclude:
+    labels:
+      - changelog/ignore
+categories:
+  - title: 'Features 🚀'
+    labels:
+      - pr/new
+      - pr/improvement
+  - title: 'Bug Fixes 🐛'
+    labels:
+      - pr/fix
+  - title: 'Documentation 📚'
+    labels:
+      - pr/docs
+  - title: 'Translations 📚'
+    labels:
+      - pr/translation
+  - title: 'Maintenance 🛠️'
+    labels:
+      - pr/maintenance
+      - pr/cleanup

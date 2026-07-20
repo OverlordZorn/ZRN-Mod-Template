@@ -26,10 +26,8 @@ categories:
 exclude-labels:
   - pr/ignore
 
-change-template: '* $TITLE (#$NUMBER) by @$AUTHOR'
+change-template: '* $TITLE (#$NUMBER)'
 template: |
-  _Requires the latest Version of [CBA](https://github.com/CBATeam/CBA_A3) and [ACE](https://github.com/acemod/ACE3)._
-
   ## Summary
 
   ## Changelog
