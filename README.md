@@ -9,7 +9,7 @@ Feel free to create a PR if you see something missing!
 - MAIN ADDON
   - Has a set of my personal macros. Some are somewhat duplicate from cba, but i already got used to them. Feel free to use them or not.
 
-- DEFAULT ADDON - new addons are created with `tools\new-addon.ps1` from [ZRN-Mod-Template-Default-Addon](https://github.com/CVO-Org/ZRN-Mod-Template-Default-Addon)
+- DEFAULT ADDON - new addons are created with `tools\new-addon.bat` from [ZRN-Mod-Template-Default-Addon](https://github.com/CVO-Org/ZRN-Mod-Template-Default-Addon)
   - Basic CfgFunctions Setup
     - example `fn_example.sqf` function
   - Basic CBA XEH Setup
@@ -41,7 +41,7 @@ Feel free to create a PR if you see something missing!
   - `Github: Sync Labels` - run manually, applies the labels from `.github\labels.yml` to the repo (optionally removes all unlisted labels)
 
 - TOOLS
-  - `new-addon.ps1` - creates a new addon from the addon template, see [Per New Addon](#per-new-addon)
+  - `new-addon.bat` / `new-addon.ps1` - creates a new addon from the default addon, see [Per New Addon](#per-new-addon)
   - `validate_config.py` - config style checks (tabs, brackets, class formatting)
   - `sync_labels.py` - applies `.github\labels.yml`
   - `update-version.ps1` / `create-meta-cpp.ps1` - set the version and create `meta.cpp` during the Steam release
@@ -80,10 +80,10 @@ Feel free to create a PR if you see something missing!
 ### Per New Addon
 
 #### Run the new addon script
-From the repository root:
+Double-click `tools\new-addon.bat`, or run it from a terminal in the repository root (e.g. in VSCode):
 
-```powershell
-powershell -ExecutionPolicy Bypass -File tools\new-addon.ps1
+```
+tools\new-addon.bat
 ```
 
 It asks for:
@@ -95,7 +95,7 @@ It asks for:
 The script downloads the default addon from [ZRN-Mod-Template-Default-Addon](https://github.com/CVO-Org/ZRN-Mod-Template-Default-Addon) (branch `main`), so every mod starts from the same default, fills it in and creates `addons\<name>`. Nothing outside that folder is touched.
 
 Options:
-- `-Name`, `-DisplayName`, `-Author` - skip the questions, e.g. `tools\new-addon.ps1 -Name my_addon -DisplayName "My Addon" -Author "Zorn"`
+- `-Name`, `-DisplayName`, `-Author` - skip the questions, e.g. `tools\new-addon.bat -Name my_addon -DisplayName "My Addon" -Author "Zorn"`
 - `-TemplateDir <path>` - use a local template folder instead of downloading it
 - `-TemplateRepo <owner/repo>` / `-TemplateRef <branch or tag>` - download the template from somewhere else
 
