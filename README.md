@@ -9,7 +9,7 @@ Feel free to create a PR if you see something missing!
 - MAIN ADDON
   - Has a set of my personal macros. Some are somewhat duplicate from cba, but i already got used to them. Feel free to use them or not.
 
-- TEMPLATE ADDON Folder
+- DEFAULT ADDON - new addons are created with `tools\new-addon.ps1` from [ZRN-Mod-Template-Default-Addon](https://github.com/CVO-Org/ZRN-Mod-Template-Default-Addon)
   - Basic CfgFunctions Setup
     - example `fn_example.sqf` function
   - Basic CBA XEH Setup
@@ -40,7 +40,8 @@ Feel free to create a PR if you see something missing!
   - `Github: Translation Issue` - on stringtable changes, keeps a "Translations" issue updated with the `hemtt ln coverage` report (creates the issue if needed)
   - `Github: Sync Labels` - run manually, applies the labels from `.github\labels.yml` to the repo (optionally removes all unlisted labels)
 
-- TOOLS - used by the workflows above
+- TOOLS
+  - `new-addon.ps1` - creates a new addon from the addon template, see [Per New Addon](#per-new-addon)
   - `validate_config.py` - config style checks (tabs, brackets, class formatting)
   - `sync_labels.py` - applies `.github\labels.yml`
   - `update-version.ps1` / `create-meta-cpp.ps1` - set the version and create `meta.cpp` during the Steam release
@@ -78,29 +79,33 @@ Feel free to create a PR if you see something missing!
 
 ### Per New Addon
 
-#### Choose a suitable name for the addon.
-Examples are `common` or `my_addon`
+#### Run the new addon script
+From the repository root:
 
-> [!IMPORTANT]
-> Ensure only lowercase is used in addon name! Especially important for the foldername.
-> Building with hemtt through github will cause issues if uppercase is used!
+```powershell
+powershell -ExecutionPolicy Bypass -File tools\new-addon.ps1
+```
 
-#### Use VSCode Find and Replace
-1. replace PLACEHOLDER: `~TEMPLATE_ADDON~` with desired Addon Name.
+It asks for:
+1. the addon name, like `common` or `my_addon` - only lowercase letters, digits and `_`
+2. the display name (`COMPONENT_BEAUTIFIED`), suggested from the addon name
+3. the author, suggested from your git user name
 
-#### Update the following files according to your needs
-##### Template Addon
-1. Rename Folder accordingly, like `common` or `my_addon`. only lowercase!
-2. Check `$PBOPREFIX$` should say something like `x\abe\addons\my_addon`
-3. Check and Update `script_component.hpp`
-   1. check and update `COMPONENT` and `COMPONENT_BEAUTIFIED` if needed
-   2. check both `#includes`
-4. Update `addons\~TEMPLATE_ADDON~\config.cpp`
-   - update `authors[] = {};`
-   - update other entries where needed.
+`MAINPREFIX` and `PREFIX` are read from `.hemtt\project.toml`, so the mod has to be set up first.
+The script downloads the default addon from [ZRN-Mod-Template-Default-Addon](https://github.com/CVO-Org/ZRN-Mod-Template-Default-Addon) (branch `main`), so every mod starts from the same default, fills it in and creates `addons\<name>`. Nothing outside that folder is touched.
 
-5. Start building your mod
+Options:
+- `-Name`, `-DisplayName`, `-Author` - skip the questions, e.g. `tools\new-addon.ps1 -Name my_addon -DisplayName "My Addon" -Author "Zorn"`
+- `-TemplateDir <path>` - use a local template folder instead of downloading it
+- `-TemplateRepo <owner/repo>` / `-TemplateRef <branch or tag>` - download the template from somewhere else
+
+#### Then
+1. Update `addons\<name>\config.cpp` - `requiredAddons[]`, `units[]`, `weapons[]` and other entries where needed
+2. Start building your mod
    1. Dont forget to remove fn_example.
+
+#### Changing the default addon
+The default addon lives in the `addon` folder of [ZRN-Mod-Template-Default-Addon](https://github.com/CVO-Org/ZRN-Mod-Template-Default-Addon). Its placeholders are `{{MAINPREFIX}}`, `{{PREFIX}}`, `{{ADDON}}`, `{{ADDON_BEAUTIFIED}}` and `{{AUTHOR}}`. Changes are used by every mod as soon as they are merged into its `main`.
 
 ## How to install Hemtt
 `winget install BrettMayson.HEMTT` to install.
