@@ -23,22 +23,31 @@ Feel free to create a PR if you see something missing!
 - HEMTT
   - hemtt's project.toml
   - hemtt's launch.toml
-    - simple Editor Test Mission `test.vr` to be used with `hemtt launch Test`
+    - simple Editor Test Mission `test.VR` to be used with `hemtt launch test`
+  - hemtt's lints.toml
 
 - GITHUB
-  - Github Action on release
-    - create and rename .zip files for the Github Release Page
-    - Update Existing Steam Workshop Files directly from the Github Release
+  - `Release: Drafter` - drafts the next release (`v$NEXT_PATCH_VERSION`) from merged PRs, sorted by their `pr/*` labels
+  - `Github: Require Label` - every PR needs at least one label (so the drafter can sort it)
+  - `Release: Publish to Steam` / `[DEV]` - (disabled by default, see comments in the files)
+    - sets MAJOR.MINOR.PATCH in `script_version.hpp` from the release tag
+    - sets `_DEV_VERSION_` in `addons\main\debug_mode.hpp` to `1` (dev) or `0` (stable)
+    - creates `meta.cpp`, builds via hemtt and attaches the .zip to the Github Release
+    - Updates the Existing Steam Workshop Item, using the release notes as changelog
       - Requires Steam Account that Owns Arma3. It is strongly advised to aquire a secondary account if you wish to use the release->Steamworkshop feature
-    - Planned: Bump Patch Version on PR Merge
-    - Planned: Bump Minor Version on Release, set patch to 0
-  - SQF Validator Python Script
+  - `Release: Discord Notice` - (disabled by default) posts the release notes to discord via webhook
+  - `Validate: Config` / `Validate: HEMTT` - on push & PR
+  - `Github: Translation Issue` - on stringtable changes, keeps a "Translations" issue updated with the `hemtt ln coverage` report (creates the issue if needed)
+  - `Github: Sync Labels` - run manually, applies the labels from `.github\labels.yml` to the repo (optionally removes all unlisted labels)
 
+- TOOLS - used by the workflows above
+  - `validate_config.py` - config style checks (tabs, brackets, class formatting)
+  - `sync_labels.py` - applies `.github\labels.yml`
+  - `update-version.ps1` / `create-meta-cpp.ps1` - set the version and create `meta.cpp` during the Steam release
 
 - Automated Version Bumping
-  - MINOR on `hemtt release` (WIP: Only bumps when using on your local mashine through hemtt, not when releasing through github action.)
-  - PATCH on github PR (PLANNED, not done yet - need to learn github action stuff first)
-  - BUILD on `hemtt built`, including `hemtt launch`
+  - BUILD on `hemtt build`, including `hemtt launch`
+  - MAJOR.MINOR.PATCH from the release tag when releasing through the github action
 
 
 
@@ -59,7 +68,13 @@ Feel free to create a PR if you see something missing!
 2. Update `addons\main\script_mod.hpp`
 3. Update `addons\main\script_version.hpp` when needed
 4. Update `addons\main\config.cpp`
-5. Update `addons\main\stringtable.xml`
+5. Update `addons\main\stringtable.xml` - `author` and `url` are used by every addon's `CfgPatches` via `ECSTRING(main,author)` / `ECSTRING(main,url)`
+
+#### Github Repo
+1. Add the `pr/*` labels (needed by `Release: Drafter` and `Github: Require Label`): Actions tab -> `Github: Sync Labels` -> Run workflow
+   - first run with `Dry run` ticked to see what would change
+   - set `remove_unlisted: true` in `.github\labels.yml` to also remove githubs default labels
+2. Optional: set up and enable the `release-*.yml` workflows (Steam / Discord)
 
 ### Per New Addon
 
@@ -90,9 +105,8 @@ Examples are `common` or `my_addon`
 ## How to install Hemtt
 `winget install BrettMayson.HEMTT` to install.
 
-### auto update hemtt
-in `tools` you can find a `update_hemtt.bat` which i use in my autostart folder to automatically update hemtt.
-You can find your Win Users Autostart folder via  `WIN+R` -> `shell:startup`
+### Update Hemtt
+`winget upgrade BrettMayson.HEMTT` to update.
 
 ### Install Winget
 https://learn.microsoft.com/en-us/windows/package-manager/winget/

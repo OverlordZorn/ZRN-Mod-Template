@@ -27,6 +27,6 @@ workshop = [
 dlc = []
 
 
-[Test]
+[test]
 extends = "default"
 mission = "test.VR"

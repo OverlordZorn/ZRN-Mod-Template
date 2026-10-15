@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project name="mod-template">
+<Project name="~PREFIX~">
     <Package name="Main">
-        <Key ID="STR_mod_author">
+        <Key ID="STR_~PREFIX~_main_author">
             <English>Derp Derpington</English>
         </Key>
-        <Key ID="STR_mod_URL">
-            <English>https://github.com/OverlordZorn/ZRN-Template-Mod</English>
+        <Key ID="STR_~PREFIX~_main_url">
+            <English>https://github.com/OverlordZorn/ZRN-Mod-Template</English>
         </Key>
     </Package>
 </Project>
