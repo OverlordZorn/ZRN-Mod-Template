@@ -42,6 +42,7 @@ Feel free to create a PR if you see something missing!
 
 - TOOLS
   - `new-addon.bat` / `new-addon.ps1` - creates a new addon from the default addon, see [Per New Addon](#per-new-addon)
+  - `readme-workshop.bat` / `readme-workshop.ps1` - converts `README.md` into a Steam Workshop description, see [Steam Workshop Description](#steam-workshop-description)
   - `validate_config.py` - config style checks (tabs, brackets, class formatting)
   - `sync_labels.py` - applies `.github\labels.yml`
   - `update-version.ps1` / `create-meta-cpp.ps1` - set the version and create `meta.cpp` during the Steam release
@@ -106,6 +107,34 @@ Options:
 
 #### Changing the default addon
 The default addon lives in the `addon` folder of [ZRN-Mod-Template-Default-Addon](https://github.com/CVO-Org/ZRN-Mod-Template-Default-Addon). Its placeholders are `{{MAINPREFIX}}`, `{{PREFIX}}`, `{{ADDON}}`, `{{ADDON_BEAUTIFIED}}` and `{{AUTHOR}}`. Changes are used by every mod as soon as they are merged into its `main`.
+
+### Steam Workshop Description
+Double-click `tools\readme-workshop.bat`, or run it from a terminal in the repository root:
+
+```
+tools\readme-workshop.bat
+```
+
+It converts `README.md` into `README_workshop.txt`, written in the BBCode the Steam Workshop description uses. Copy its content into the description of the workshop item.
+- Headings, bold / italic / strikethrough, links, images, lists, code blocks, quotes, GitHub alerts (`> [!IMPORTANT]`), tables and horizontal rules are converted.
+- Relative links and images point to the GitHub repository (from the `origin` remote) on branch `main`.
+- Images Steam can't show (SVG, like shields.io badges) are replaced by their alt text, so a badge link stays a link.
+- Lines of a paragraph are joined, like GitHub shows them. `-KeepLineBreaks` keeps every line break.
+- Steam descriptions are limited to 8000 characters, the script warns when the result is longer.
+
+Parts of the readme can be left out or added only for the workshop:
+```
+<!-- workshop-skip -->
+## Building from source
+Only shown on GitHub.
+<!-- /workshop-skip -->
+
+<!-- workshop-only Only shown on the workshop, like a link back to the [GitHub Repository](https://github.com/...) -->
+```
+
+Options:
+- `-Path <readme>` / `-OutFile <file>` - convert another file, like an addon's readme
+- `-Repo <owner/repo>` / `-Branch <branch>` - where relative links point to
 
 ## How to install Hemtt
 `winget install BrettMayson.HEMTT` to install.
