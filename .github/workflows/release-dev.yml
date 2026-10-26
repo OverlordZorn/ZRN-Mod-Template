@@ -10,6 +10,8 @@
 # 1. Update FOLDER, WORKSHOPID and WORKSHOPNAME below
 # 2. Add STEAM_USERNAME as github repo secret
 # 3. Add STEAM_PASSWORD as github repo secret
+# -- Org secrets with these names also work, EXCEPT for private repos in an org on the GitHub Free plan:
+#    there they reach the workflow empty. The "Check Steam secrets" step below catches that.
 # 4. Remove the `if: false` line of the job
 #
 # The DEV release runs on pre-releases AND releases and sets _DEV_VERSION_ 1 (see addons/main/debug_mode.hpp)
@@ -35,6 +37,21 @@ jobs:
     if: false # Remove this line once the workflow is set up - see "How to use" above
     runs-on: ubuntu-latest
     steps:
+        # Fail before the build instead of at the Workshop upload, where empty secrets only show steamcmd's usage text.
+        - name: Check Steam secrets
+          env:
+            STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
+            STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+          run: |
+            missing=""
+            [ -z "$STEAM_USERNAME" ] && missing="$missing STEAM_USERNAME"
+            [ -z "$STEAM_PASSWORD" ] && missing="$missing STEAM_PASSWORD"
+            if [ -n "$missing" ]; then
+              echo "::error title=Steam secrets missing::Empty:$missing. Set them as repo secrets (gh secret set <NAME> --repo ${{ github.repository }}). Org secrets reach private repos empty on the GitHub Free plan."
+              exit 1
+            fi
+            echo "Steam secrets are set."
+
         - name: Set VERSION env
           run: echo VERSION=${GITHUB_REF:11} >> $GITHUB_ENV
 
