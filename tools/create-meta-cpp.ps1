@@ -9,7 +9,7 @@ $ticks = [DateTime]::UtcNow.Ticks
 
 # Build the file content without comments
 $content = @"
-protocole = 1;
+protocol = 1;
 publishedid = $PublishedId;
 name = "$ModName";
 timestamp = $ticks;
