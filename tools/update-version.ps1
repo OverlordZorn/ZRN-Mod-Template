@@ -15,7 +15,7 @@ $major = $Matches[1]
 $minor = $Matches[2]
 $patch = $Matches[3]
 
-Write-Host "Updating $filePath → MAJOR=$major, MINOR=$minor, PATCH=$patch"
+Write-Host "Updating $filePath -> MAJOR=$major, MINOR=$minor, PATCH=$patch"
 
 $content = Get-Content $filePath
 
