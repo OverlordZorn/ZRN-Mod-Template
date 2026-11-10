@@ -36,6 +36,7 @@ Feel free to create a PR if you see something missing!
     - Updates the Existing Steam Workshop Item, using the release notes as changelog
       - Requires Steam Account that Owns Arma3. It is strongly advised to aquire a secondary account if you wish to use the release->Steamworkshop feature
   - `Release: Discord Notice` - (disabled by default) posts the release notes to discord via webhook
+    - called by the Steam release workflows once their upload succeeded (pre-releases by DEV, full releases by stable), so a failed upload is not announced
   - `Validate: Config` / `Validate: HEMTT` - on push & PR
   - `Github: Translation Issue` - on stringtable changes, keeps a "Translations" issue updated with the `hemtt ln coverage` report (creates the issue if needed)
   - `Github: Sync Labels` - run manually, applies the labels from `.github\labels.yml` to the repo (optionally removes all unlisted labels)
