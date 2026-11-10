@@ -15,6 +15,9 @@
 # 4. Remove the `if: false` line of the job
 #
 # The STABLE release only runs on full releases and sets _DEV_VERSION_ 0 (see addons/main/debug_mode.hpp)
+#
+# Discord notice: once the upload succeeded, the discord-notice job calls release-notice.yml for the full release.
+# This also covers a pre-release that is later promoted to a full release.
 
 name: "Release: Publish to Steam"
 
@@ -118,3 +121,10 @@ jobs:
           env:
             STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
             STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+
+  # Announces full releases only after the upload succeeded
+  # Skipped automatically while release-addon is still disabled with `if: false`
+  discord-notice:
+    needs: release-addon
+    uses: ./.github/workflows/release-notice.yml
+    secrets: inherit

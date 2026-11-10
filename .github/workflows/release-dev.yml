@@ -16,6 +16,10 @@
 #
 # The DEV release runs on pre-releases AND releases and sets _DEV_VERSION_ 1 (see addons/main/debug_mode.hpp)
 # If you only maintain a single workshop item, delete this file and only use release-stable.yml
+# -- pre-releases are then no longer announced on Discord
+#
+# Discord notice: once the upload succeeded, the discord-notice job calls release-notice.yml for pre-releases.
+# Full releases are announced by release-stable.yml instead, so they are announced only once.
 
 name: "Release: Publish to Steam [DEV]"
 
@@ -119,3 +123,11 @@ jobs:
           env:
             STEAM_USERNAME: ${{ secrets.STEAM_USERNAME }}
             STEAM_PASSWORD: ${{ secrets.STEAM_PASSWORD }}
+
+  # Announces pre-releases only after the upload succeeded - full releases are announced by release-stable.yml
+  # Skipped automatically while release-addon is still disabled with `if: false`
+  discord-notice:
+    needs: release-addon
+    if: github.event.action == 'prereleased'
+    uses: ./.github/workflows/release-notice.yml
+    secrets: inherit
