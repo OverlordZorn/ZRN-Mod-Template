@@ -27,7 +27,9 @@ Feel free to create a PR if you see something missing!
   - hemtt's lints.toml
 
 - GITHUB - every workflow is a thin wrapper around the central [A3-AZ/a3_workflows](https://github.com/A3-AZ/a3_workflows) (`@v1`), so fixes arrive without a template sync
+<!-- workshop-skip -->
   - they are skipped in this template repository itself (`if: github.repository != 'OverlordZorn/ZRN-Mod-Template'`) and run in every mod created from it
+<!-- /workshop-skip -->
   - `Release: Draft Changelog` - drafts the next release (`v$NEXT_PATCH_VERSION`) from merged PRs, sorted by their `pr/*` labels (config: `.github\release-drafter.yml`)
   - `Validate: PR Label` - every PR needs at least one label (so the drafter can sort it)
   - `Release: Steam` - (disabled by default, see comments in the file) - calls the central [`release_steam`](https://github.com/A3-AZ/a3_workflows/tree/main/release_steam) workflow

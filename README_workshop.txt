@@ -37,7 +37,6 @@ Feel free to create a PR if you see something missing!
 [/list]
 [*]GITHUB - every workflow is a thin wrapper around the central [url=https://github.com/A3-AZ/a3_workflows]A3-AZ/a3_workflows[/url] (@v1), so fixes arrive without a template sync
 [list]
-[*]they are skipped in this template repository itself (if: github.repository != 'OverlordZorn/ZRN-Mod-Template') and run in every mod created from it
 [*]Release: Draft Changelog - drafts the next release (v$NEXT_PATCH_VERSION) from merged PRs, sorted by their pr/* labels (config: .github\release-drafter.yml)
 [*]Validate: PR Label - every PR needs at least one label (so the drafter can sort it)
 [*]Release: Steam - (disabled by default, see comments in the file) - calls the central [url=https://github.com/A3-AZ/a3_workflows/tree/main/release_steam]release_steam[/url] workflow
