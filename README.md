@@ -26,9 +26,9 @@ Feel free to create a PR if you see something missing!
     - simple Editor Test Mission `test.VR` to be used with `hemtt launch test`
   - hemtt's lints.toml
 
-- GITHUB
-  - `Release: Drafter` - drafts the next release (`v$NEXT_PATCH_VERSION`) from merged PRs, sorted by their `pr/*` labels
-  - `Github: Require Label` - every PR needs at least one label (so the drafter can sort it)
+- GITHUB - every workflow is a thin wrapper around the central [A3-AZ/a3_workflows](https://github.com/A3-AZ/a3_workflows) (`@v1`), so fixes arrive without a template sync
+  - `Release: Draft Changelog` - drafts the next release (`v$NEXT_PATCH_VERSION`) from merged PRs, sorted by their `pr/*` labels (config: `.github\release-drafter.yml`)
+  - `Validate: PR Label` - every PR needs at least one label (so the drafter can sort it)
   - `Release: Steam` - (disabled by default, see comments in the file) - calls the central [`release_steam`](https://github.com/A3-AZ/a3_workflows/tree/main/release_steam) workflow
     - pre-releases update the DEV Workshop item, full releases the STABLE item (and the DEV item, so it never falls behind)
     - sets MAJOR.MINOR.PATCH in `script_version.hpp` from the release tag
@@ -37,15 +37,13 @@ Feel free to create a PR if you see something missing!
     - Updates the existing Steam Workshop item, using the release notes as changelog; title, and if present `.steam\description.md` / `.steam\preview.png`, are synced to the Workshop page
       - Requires Steam Account that Owns Arma3. It is strongly advised to aquire a secondary account if you wish to use the release->Steamworkshop feature
     - optionally announces the release on Discord ("Stable Release!" / "Dev Release!") once the upload succeeded
-  - `Validate: Config` / `Validate: HEMTT` - on push & PR
-  - `Github: Translation Issue` - on stringtable changes, keeps a "Translations" issue updated with the `hemtt ln coverage` report (creates the issue if needed)
-  - `Github: Sync Labels` - run manually, applies the labels from `.github\labels.yml` to the repo (optionally removes all unlisted labels)
+  - `Validate: HEMTT` / `Validate: Config` / `Validate: Stringtable` - on push & PR: `hemtt check`, config style (tabs, brackets, class formatting), stringtable rules
+  - `Update: Translation Issue` - on stringtable changes, keeps a "Translations" issue updated with the `hemtt localization coverage` report (creates the issue if needed)
+  - `Sync: Labels` - run manually, applies the labels from `.github\labels.yml` to the repo (optionally removes all unlisted labels)
 
 - TOOLS
   - `new-addon.bat` / `new-addon.ps1` - creates a new addon from the default addon, see [Per New Addon](#per-new-addon)
   - `readme-workshop.bat` / `readme-workshop.ps1` - converts `README.md` into a Steam Workshop description, see [Steam Workshop Description](#steam-workshop-description)
-  - `validate_config.py` - config style checks (tabs, brackets, class formatting)
-  - `sync_labels.py` - applies `.github\labels.yml`
 
 - Automated Version Bumping
   - BUILD on `hemtt build`, including `hemtt launch`
@@ -73,7 +71,7 @@ Feel free to create a PR if you see something missing!
 5. Update `addons\main\stringtable.xml` - `author` and `url` are used by every addon's `CfgPatches` via `ECSTRING(main,author)` / `ECSTRING(main,url)`
 
 #### Github Repo
-1. Add the `pr/*` labels (needed by `Release: Drafter` and `Github: Require Label`): Actions tab -> `Github: Sync Labels` -> Run workflow
+1. Add the `pr/*` labels (needed by `Release: Draft Changelog` and `Validate: PR Label`): Actions tab -> `Sync: Labels` -> Run workflow
    - first run with `Dry run` ticked to see what would change
    - set `remove_unlisted: true` in `.github\labels.yml` to also remove githubs default labels
 2. Optional: set up and enable `.github\workflows\release_steam.yml` (Steam / Discord)

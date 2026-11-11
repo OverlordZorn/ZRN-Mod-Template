@@ -35,32 +35,30 @@ Feel free to create a PR if you see something missing!
 [/list]
 [*]hemtt's lints.toml
 [/list]
-[*]GITHUB
+[*]GITHUB - every workflow is a thin wrapper around the central [url=https://github.com/A3-AZ/a3_workflows]A3-AZ/a3_workflows[/url] (@v1), so fixes arrive without a template sync
 [list]
-[*]Release: Drafter - drafts the next release (v$NEXT_PATCH_VERSION) from merged PRs, sorted by their pr/* labels
-[*]Github: Require Label - every PR needs at least one label (so the drafter can sort it)
-[*]Release: Publish to Steam / [noparse][DEV][/noparse] - (disabled by default, see comments in the files)
+[*]Release: Draft Changelog - drafts the next release (v$NEXT_PATCH_VERSION) from merged PRs, sorted by their pr/* labels (config: .github\release-drafter.yml)
+[*]Validate: PR Label - every PR needs at least one label (so the drafter can sort it)
+[*]Release: Steam - (disabled by default, see comments in the file) - calls the central [url=https://github.com/A3-AZ/a3_workflows/tree/main/release_steam]release_steam[/url] workflow
 [list]
+[*]pre-releases update the DEV Workshop item, full releases the STABLE item (and the DEV item, so it never falls behind)
 [*]sets MAJOR.MINOR.PATCH in script_version.hpp from the release tag
 [*]sets _DEV_VERSION_ in addons\main\debug_mode.hpp to 1 (dev) or 0 (stable)
 [*]creates meta.cpp, builds via hemtt and attaches the .zip to the Github Release
-[*]Updates the Existing Steam Workshop Item, using the release notes as changelog
+[*]Updates the existing Steam Workshop item, using the release notes as changelog; title, and if present .steam\description.md / .steam\preview.png, are synced to the Workshop page
 [list]
 [*]Requires Steam Account that Owns Arma3. It is strongly advised to aquire a secondary account if you wish to use the release->Steamworkshop feature
 [/list]
+[*]optionally announces the release on Discord ("Stable Release!" / "Dev Release!") once the upload succeeded
 [/list]
-[*]Release: Discord Notice - (disabled by default) posts the release notes to discord via webhook
-[*]Validate: Config / Validate: HEMTT - on push & PR
-[*]Github: Translation Issue - on stringtable changes, keeps a "Translations" issue updated with the hemtt ln coverage report (creates the issue if needed)
-[*]Github: Sync Labels - run manually, applies the labels from .github\labels.yml to the repo (optionally removes all unlisted labels)
+[*]Validate: HEMTT / Validate: Config / Validate: Stringtable - on push & PR: hemtt check, config style (tabs, brackets, class formatting), stringtable rules
+[*]Update: Translation Issue - on stringtable changes, keeps a "Translations" issue updated with the hemtt localization coverage report (creates the issue if needed)
+[*]Sync: Labels - run manually, applies the labels from .github\labels.yml to the repo (optionally removes all unlisted labels)
 [/list]
 [*]TOOLS
 [list]
 [*]new-addon.bat / new-addon.ps1 - creates a new addon from the default addon, see Per New Addon
 [*]readme-workshop.bat / readme-workshop.ps1 - converts README.md into a Steam Workshop description, see Steam Workshop Description
-[*]validate_config.py - config style checks (tabs, brackets, class formatting)
-[*]sync_labels.py - applies .github\labels.yml
-[*]update-version.ps1 / create-meta-cpp.ps1 - set the version and create meta.cpp during the Steam release
 [/list]
 [*]Automated Version Bumping
 [list]
@@ -94,12 +92,12 @@ Feel free to create a PR if you see something missing!
 
 [h3]Github Repo[/h3]
 [olist]
-[*]Add the pr/* labels (needed by Release: Drafter and Github: Require Label): Actions tab -> Github: Sync Labels -> Run workflow
+[*]Add the pr/* labels (needed by Release: Draft Changelog and Validate: PR Label): Actions tab -> Sync: Labels -> Run workflow
 [list]
 [*]first run with Dry run ticked to see what would change
 [*]set remove_unlisted: true in .github\labels.yml to also remove githubs default labels
 [/list]
-[*]Optional: set up and enable the release-*.yml workflows (Steam / Discord)
+[*]Optional: set up and enable .github\workflows\release_steam.yml (Steam / Discord)
 [/olist]
 
 [h3]Per New Addon[/h3]

@@ -1,0 +1,31 @@
+# Fails a pull request that has no label.
+# Documentation: https://github.com/A3-AZ/a3_workflows/tree/main/validate_pr_label
+#
+# Copy this file to .github/workflows/validate_pr_label.yml. Make the job a required status check
+# (Settings -> Branches / Rules) to block merging pull requests without a label.
+
+name: "Validate: PR Label"
+
+on:
+  pull_request:
+    types: [opened, labeled, unlabeled, synchronize, reopened]
+
+permissions:
+  pull-requests: read
+
+# On 'opened' the check waits for labels before it reads them. A label added during that wait
+# starts a new run - this group cancels the waiting one, so the newest state of the pull request decides.
+concurrency:
+  group: validate-pr-label-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Validate PR label
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check for a label
+        uses: A3-AZ/a3_workflows/validate_pr_label@v1
+        # with:
+        #   label-pattern: 'pr/*'   # optional - only labels matching this pattern count
+        #   wait-seconds: 15        # optional - wait on opened/reopened before reading the labels
