@@ -1,0 +1,32 @@
+# Checks the stringtable.xml files of the mod on every push to main and every pull request.
+# Documentation: https://github.com/A3-AZ/a3_workflows/tree/main/validate_stringtable
+#
+# Copy this file to .github/workflows/validate_stringtable.yml. All inputs are optional.
+
+name: "Validate: Stringtable"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
+    name: Validate stringtables
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout the source code
+        uses: actions/checkout@v7
+
+      - name: Validate stringtables
+        uses: A3-AZ/a3_workflows/validate_stringtable@v1
+        with:
+          case-sensitive: 'false'           # accept Package 'Main' with keys 'STR_<prefix>_main_...'
+        #   prefix: 'mod'                   # default: 'prefix' from .hemtt/project.toml
+        #   exclude: |                      # paths to skip, one glob per line
+        #     include/*
+        #   skip-checks: 'project-name'     # project-name, package-name, key-prefix, english-first, no-original, whitespace

@@ -1,30 +1,29 @@
+# Runs hemtt check on every push to main and on every pull request against main.
+# Documentation: https://github.com/A3-AZ/a3_workflows/tree/main/validate_hemtt
+#
+# Copy this file to .github/workflows/validate_hemtt.yml. No values need to be filled in.
+
 name: "Validate: HEMTT"
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
+    runs-on: ubuntu-24.04
     steps:
-    - name: Checkout the source code
-      uses: actions/checkout@v4
-    - name: Fill template placeholders
-      # Only does something in the template repo itself - "~" is not valid in class names, so the raw template can't pass hemtt check
-      # The placeholders are assembled from T on purpose, so the "find and replace" during mod setup doesn't alter this step
-      run: |
-        T='~'
-        files=$(grep -rlI --exclude-dir=.git --exclude-dir=include -e "${T}MAINPREFIX${T}" -e "${T}PREFIX${T}" . || true)
-        if [ -n "$files" ]; then
-          echo "Template placeholders found, filling them in for this check"
-          echo "$files" | xargs sed -i "s/${T}MAINPREFIX${T}/z/g; s/${T}PREFIX${T}/tmpl/g"
-        fi
-    - name: Setup HEMTT
-      uses: arma-actions/hemtt@v1
-    - name: Validate HEMTT
-      run: hemtt check
+      - name: Checkout the source code
+        uses: actions/checkout@v7
+
+      - name: Validate HEMTT
+        uses: A3-AZ/a3_workflows/validate_hemtt@v1
+        # with:
+        #   check-args: '--pedantic'
+        #   hemtt-version: 'latest'

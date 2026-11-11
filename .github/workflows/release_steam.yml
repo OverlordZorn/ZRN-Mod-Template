@@ -1,0 +1,49 @@
+# Builds the mod with HEMTT and publishes it to the Steam Workshop on every release.
+# The logic lives centrally in A3-AZ/a3_workflows - this file only sets the values for this mod.
+# Documentation: https://github.com/A3-AZ/a3_workflows/tree/main/release_steam
+#
+# - Pre-release:  updates the DEV item (if workshop-id-dev is set), Discord: "Dev Release!"
+# - Full release: updates the STABLE item and the DEV item, attaches the zip, Discord: "Stable Release!"
+# - Title, and if present .steam/description.md + .steam/preview.png, are synced to the Workshop page
+#
+# How to use
+#
+# 1. Fill in mod-name, workshop-id and (optional) workshop-id-dev / mod-name-dev below
+# 2. Add STEAM_USERNAME and STEAM_PASSWORD as github repo secrets
+# -- Steam account that is a contributor of the Workshop items, with Steam Guard disabled
+# -- Org secrets with these names also work, EXCEPT for private repos in an org on the GitHub Free plan
+# 3. Optional: add DISCORD_WEBHOOK_URL as repo secret and set the discord-* inputs below
+# 4. Remove the `if: false` line of the job
+
+name: "Release: Steam"
+
+on:
+  release:
+    types: [prereleased, released]
+
+permissions:
+  contents: write
+
+# Two releases of the same repository never upload at the same time
+concurrency:
+  group: release-steam
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: false # Remove this line once the workflow is set up - see "How to use" above
+    uses: A3-AZ/a3_workflows/.github/workflows/release_steam.yml@v1
+    with:
+      mod-folder: '@~MAINPREFIX~_~PREFIX~'
+      mod-name: 'Example Mod'
+      workshop-id: '0000000000'
+      # workshop-id-dev: '0000000000'      # without it, pre-releases do nothing
+      # mod-name-dev: 'Example Mod [DEV]'  # default: "<mod-name> [DEV]"
+      # discord-content-stable: 'Stable Release! ||<@&ROLE_ID>||'
+      # discord-content-dev: 'Dev Release! ||<@&ROLE_ID>||'
+      # discord-avatar-url: 'https://raw.githubusercontent.com/<owner>/<repo>/main/img/<logo>.png'
+      # discord-footer-icon-url: 'https://raw.githubusercontent.com/<owner>/<repo>/main/img/<logo>.png'
+    secrets:
+      steam-username: ${{ secrets.STEAM_USERNAME }}
+      steam-password: ${{ secrets.STEAM_PASSWORD }}
+      discord-webhook: ${{ secrets.DISCORD_WEBHOOK_URL }} # no secret = no announcement

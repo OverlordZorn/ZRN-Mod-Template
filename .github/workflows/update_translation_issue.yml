@@ -1,0 +1,38 @@
+# Keeps an open issue updated with the localization coverage report of `hemtt localization coverage`.
+# The issue is created if it does not exist yet, and only edited when the coverage changes.
+# Documentation: https://github.com/A3-AZ/a3_workflows/tree/main/update_translation_issue
+#
+# Copy this file to .github/workflows/update_translation_issue.yml - all inputs are optional.
+
+name: "Update: Translation Issue"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '**/stringtable.xml'
+
+permissions:
+  contents: read
+  issues: write
+
+# Two runs never create the issue twice
+concurrency:
+  group: update-translation-issue
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout the source code
+        uses: actions/checkout@v7
+
+      - name: Update the translation issue
+        uses: A3-AZ/a3_workflows/update_translation_issue@v1
+        # with:
+        #   title: 'Translations'
+        #   header: 'Translation completeness per language.'
+        #   guide-url: 'https://ace3.acemod.org/wiki/development/how-to-translate-ace3.html'   # default; '' = no link

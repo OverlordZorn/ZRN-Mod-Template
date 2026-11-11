@@ -1,8 +1,11 @@
-# Applies the labels from .github/labels.yml to this repo
-# Run it manually: Actions tab -> "Github: Sync Labels" -> Run workflow
-# Whether unlisted labels get deleted is controlled by settings.remove_unlisted in .github/labels.yml
+# Applies the labels from .github/labels.yml to this repository.
+# Documentation: https://github.com/A3-AZ/a3_workflows/tree/main/sync_labels
+#
+# Copy this file to .github/workflows/sync_labels.yml.
+# Run it manually: Actions tab -> "Sync: Labels" -> Run workflow. The first run is a dry run by default.
+# Whether unlisted labels get deleted is controlled by settings.remove_unlisted in .github/labels.yml.
 
-name: "Github: Sync Labels"
+name: "Sync: Labels"
 
 on:
   workflow_dispatch:
@@ -14,20 +17,18 @@ on:
 
 permissions:
   contents: read
-  issues: write   # labels are managed through the issues permission
+  issues: write # labels are managed through the issues permission
 
 jobs:
   sync-labels:
-    runs-on: ubuntu-latest
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout the source code
-        uses: actions/checkout@v4
-
-      - name: Install dependencies
-        run: pip install pyyaml
+        uses: actions/checkout@v7
 
       - name: Sync labels
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-        run: python tools/sync_labels.py ${{ inputs.dry_run && '--dry-run' || '' }}
+        uses: A3-AZ/a3_workflows/sync_labels@v1
+        with:
+          dry-run: ${{ inputs.dry_run }}
+          # labels-file: .github/labels.yml

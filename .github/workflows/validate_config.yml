@@ -1,18 +1,29 @@
+# Checks the config style of the mod (tabs, brackets, class formatting) on every push and pull request.
+# Documentation: https://github.com/A3-AZ/a3_workflows/tree/main/validate_config
+#
+# Copy this file to .github/workflows/validate_config.yml. No values need to be filled in.
+
 name: "Validate: Config"
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
+
+permissions:
+  contents: read
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
+    runs-on: ubuntu-24.04
     steps:
-    - name: Checkout the source code
-      uses: actions/checkout@v4
-    - name: Validate Config
-      run: python tools/validate_config.py
+      - name: Checkout the source code
+        uses: actions/checkout@v7
+
+      - name: Validate config style
+        uses: A3-AZ/a3_workflows/validate_config@v1
+        # with:
+        #   folders: 'addons optionals'       # folders to scan
+        #   extensions: 'cpp hpp rvmat cfg'   # file types to check
