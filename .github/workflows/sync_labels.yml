@@ -21,6 +21,7 @@ permissions:
 
 jobs:
   sync-labels:
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout the source code

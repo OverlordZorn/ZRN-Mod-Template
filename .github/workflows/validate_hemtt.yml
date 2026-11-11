@@ -16,6 +16,7 @@ permissions:
 
 jobs:
   check:
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout the source code
@@ -23,8 +24,6 @@ jobs:
 
       - name: Validate HEMTT
         uses: A3-AZ/a3_workflows/validate_hemtt@v1
-        with:
-          # Only true in the template repository itself - its raw placeholders can't pass hemtt check
-          fill-template-placeholders: ${{ github.repository == 'OverlordZorn/ZRN-Mod-Template' }}
+        # with:
         #   check-args: '--pedantic'
         #   hemtt-version: 'latest'

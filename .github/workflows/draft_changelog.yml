@@ -19,6 +19,7 @@ concurrency:
 
 jobs:
   draft:
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
     name: Draft release
     runs-on: ubuntu-24.04
     permissions:

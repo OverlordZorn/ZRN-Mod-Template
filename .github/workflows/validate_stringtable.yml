@@ -15,6 +15,7 @@ permissions:
 
 jobs:
   validate:
+    if: github.repository != 'OverlordZorn/ZRN-Mod-Template' # the template only ships this workflow - it runs in mods created from it
     name: Validate stringtables
     runs-on: ubuntu-24.04
     steps:
