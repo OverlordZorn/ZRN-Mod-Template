@@ -30,3 +30,9 @@ dlc = []
 [test]
 extends = "default"
 mission = "test.VR"
+
+# Unattended test run: switches the mission to autotest.VR. Chain it last, after a modset:
+#   hemtt launch default autotest
+# tools\autotest.ps1 runs it and reports the result. The game starts the preview and quits by itself.
+[autotest]
+mission = "autotest.VR"

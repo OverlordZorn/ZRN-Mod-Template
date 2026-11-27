@@ -1,0 +1,36 @@
+// Autotest mission: runs every test suite (tests\) unattended and closes the game afterwards.
+// Start it with the 'autotest' launch profile, chained last:  hemtt launch default autotest
+// or let the runner start it and report the result:          .\tools\autotest.ps1 default
+// init3DEN.sqf starts the preview, init.sqf runs the suites, init3DEN.sqf quits the game once they are done.
+
+onLoadName = "Autotest";
+author = "Zorn";
+enableDebugConsole = 1;
+
+// no debriefing: it waits for someone to press continue
+// https://community.bistudio.com/wiki/Arma_3:_Debriefing
+debriefing = 0;
+
+class CfgFunctions {
+    // the framework - shared through the template, don't edit per mod
+    class autotest {
+        class framework {
+            file = "autotest";
+            class banner {};
+            class check {};
+            class checkEqual {};
+            class log {};
+            class runAll {};
+            class skip {};
+            class waitFor {};
+        };
+    };
+
+    // the suites - one function per suite (tests\fn_<name>.sqf), run in the order listed here
+    class autotest_suite {
+        class suites {
+            file = "tests";
+            class example {};
+        };
+    };
+};
